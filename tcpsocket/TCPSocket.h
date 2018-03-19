@@ -26,6 +26,14 @@ public:
      */
     bool Open(unsigned short port = 0);
 
+    /**
+     * Перевод сокета в неблокирующий режим
+     * @param mode - 1 - неблокирующий
+     * 0 - блокирующий
+     * @return
+     */
+    bool NonBlocking(char mode = 1);
+
 //    /**
 //     *
 //     */
