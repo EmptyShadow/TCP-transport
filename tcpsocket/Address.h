@@ -20,7 +20,7 @@ public:
 
     Address(unsigned int address, unsigned short port);
 
-    /*unsigned int GetAddress() const;
+    unsigned int GetAddress() const;
 
     unsigned char GetA() const;
         unsigned char GetB() const;
@@ -29,7 +29,7 @@ public:
 
     unsigned short GetPort() const;
 
-    bool operator==(const Address &other) const;
+    /*bool operator==(const Address &other) const;
 
     bool operator!=(const Address &other) const;*/
 
