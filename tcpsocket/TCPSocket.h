@@ -18,13 +18,14 @@ public:
 
     ~TCPSocket();
 
-//    /**
-//     *
-//     * @param port
-//     * @return
-//     */
-//    bool Open(unsigned short port);
-//
+    /**
+     *  Привязка сокета к конкретному порту
+     * @param port - порт, по умолчанию 0, система
+     * сама выделит порт
+     * @return
+     */
+    bool Open(unsigned short port = 0);
+
 //    /**
 //     *
 //     */

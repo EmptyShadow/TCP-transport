@@ -1,6 +1,9 @@
 #include <iostream>
+#include "tcpsocket/TCPSocket.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    TCPSocket socket;
+    bool res = socket.Open();
+    std::cout << res << std::endl;
     return 0;
 }
