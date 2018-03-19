@@ -7,5 +7,6 @@ int main() {
     std::cout << res << std::endl;
     res = socket.NonBlocking();
     std::cout << res << std::endl;
+    socket.Close();
     return 0;
 }

@@ -7,6 +7,7 @@
 
 #include "stdio.h"
 #include "link_platform_h_socket.h"
+#include "unistd.h"
 
 /**
  * Класс потокового сокета, который опирается на TCP
@@ -34,17 +35,11 @@ public:
      */
     bool NonBlocking(char mode = 1);
 
-//    /**
-//     *
-//     */
-//    void Close();
-//
-//    /**
-//     *
-//     * @return
-//     */
-//    bool IsOpen() const;
-//
+    /**
+     *  Закрытие сокета
+     */
+    void Close();
+
 //    /**
 //     *
 //     * @param destination

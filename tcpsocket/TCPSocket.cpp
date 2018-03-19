@@ -82,3 +82,15 @@ bool TCPSocket::NonBlocking(char mode) {
 
 #endif
 }
+
+void TCPSocket::Close() {
+#if PLATFORM == PLATFORM_MAC || PLATFORM == PLATFORM_UNIX
+    if (close(handle) != 0) {
+        printf("failed to close socket");
+    }
+#elif PLATFORM == PLATFORM_WINDOWS
+    if (closesocket(handle) != 0) {
+        printf("failed to close socket");
+    }
+#endif
+}
