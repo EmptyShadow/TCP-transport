@@ -10,14 +10,18 @@ int main() {
     std::cout << res << std::endl;
     socket.Close();*/
 
-    Address address(192, 168, 45, 3, 8080);
+    Address address1(192, 168, 45, 3, 8080);
+    Address address2(195, 168, 45, 3, 8080);
 
-    printf("%d\n", address.GetAddress());
-    printf("%d\n", address.GetA());
-    printf("%d\n", address.GetB());
-    printf("%d\n", address.GetC());
-    printf("%d\n", address.GetD());
-    printf("%d\n", address.GetPort());
+    printf("%d\n", address1.GetAddress());
+    printf("%d\n", address1.GetA());
+    printf("%d\n", address1.GetB());
+    printf("%d\n", address1.GetC());
+    printf("%d\n", address1.GetD());
+    printf("%d\n", address1.GetPort());
+
+    printf("%d\n", address1 == address2);
+    printf("%d\n", address1 != address2);
 
     return 0;
 }

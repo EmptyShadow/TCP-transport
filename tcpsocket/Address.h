@@ -29,9 +29,9 @@ public:
 
     unsigned short GetPort() const;
 
-    /*bool operator==(const Address &other) const;
+    bool operator==(const Address &other) const;
 
-    bool operator!=(const Address &other) const;*/
+    bool operator!=(const Address &other) const;
 
 private:
 

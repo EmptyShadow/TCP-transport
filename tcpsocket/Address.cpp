@@ -39,3 +39,11 @@ unsigned char Address::GetD() const {
 unsigned short Address::GetPort() const {
     return port;
 }
+
+bool Address::operator==(const Address &other) const {
+    return address == other.address && port == other.port;
+}
+
+bool Address::operator!=(const Address &other) const {
+    return !(*this == other);
+}
