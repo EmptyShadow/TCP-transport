@@ -29,6 +29,24 @@ public:
 
     unsigned short GetPort() const;
 
+    /**
+     * Получение по объекту структуры адресации сокета
+     * @return
+     */
+    sockaddr_in GetAddressToSockAddrIn() const;
+
+    /**
+     * Получение адреса в формате следования байтов big-endian
+     * @return
+     */
+    unsigned int GetAddressToHtonl() const;
+
+    /**
+     * Получение порта в формате следования байтов big-endian
+     * @return
+     */
+    unsigned short GetPortToHtons() const;
+
     bool operator==(const Address &other) const;
 
     bool operator!=(const Address &other) const;
