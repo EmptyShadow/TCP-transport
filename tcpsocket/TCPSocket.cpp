@@ -48,6 +48,7 @@ bool TCPSocket::Open(unsigned short port) {
         printf("faildes to bind socket\n");
         return false;
     }
+
     return true;
 }
 
@@ -93,4 +94,18 @@ void TCPSocket::Close() {
         printf("failed to close socket");
     }
 #endif
+}
+
+bool TCPSocket::Send(const Address &destination, const void *packet_data, int packet_size) {
+    sockaddr_in address = destination.GetAddressToSockAddrIn();
+
+    int sent_bytes = sendto(handle, (const char *) packet_data, packet_size,
+                            0, (sockaddr *) &address, sizeof(sockaddr_in));
+
+    if (sent_bytes != packet_size) {
+        printf("failed to send packet: return value = %d\n", sent_bytes);
+        return false;
+    }
+
+    return true;
 }

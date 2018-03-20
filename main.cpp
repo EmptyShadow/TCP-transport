@@ -10,7 +10,7 @@ int main() {
     std::cout << res << std::endl;
     socket.Close();*/
 
-    Address address1(192, 168, 45, 3, 8080);
+    /*Address address1(192, 168, 45, 3, 8080);
     Address address2(195, 168, 45, 3, 8080);
 
     printf("%d\n", address1.GetAddress());
@@ -21,7 +21,7 @@ int main() {
     printf("%d\n", address1.GetPort());
 
     printf("%d\n", address1 == address2);
-    printf("%d\n", address1 != address2);
+    printf("%d\n", address1 != address2);*/
 
     return 0;
 }

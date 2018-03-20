@@ -8,6 +8,7 @@
 #include "stdio.h"
 #include "link_platform_h_socket.h"
 #include "unistd.h"
+#include "Address.h"
 
 /**
  * Класс потокового сокета, который опирается на TCP
@@ -40,15 +41,15 @@ public:
      */
     void Close();
 
-//    /**
-//     *
-//     * @param destination
-//     * @param data
-//     * @param size
-//     * @return
-//     */
-//    bool Send(const Address &destination, const void *data, int size);
-//
+    /**
+     *
+     * @param destination
+     * @param data
+     * @param size
+     * @return
+     */
+    bool Send(const Address &destination, const void *packet_data, int packet_size);
+
 //    /**
 //     *
 //     * @param sender
@@ -57,6 +58,13 @@ public:
 //     * @return
 //     */
 //    int Receive(Address &sender, void *data, int size);
+
+//    /**
+//     * Подготовка сокета к принятию входящих соединений
+//     * @param count_links
+//     * @return
+//     */
+//    bool Listen(unsigned int count_links);
 
 private:
 
