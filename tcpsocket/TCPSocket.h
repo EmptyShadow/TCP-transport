@@ -50,14 +50,14 @@ public:
      */
     bool Send(const Address &destination, const void *packet_data, int packet_size);
 
-//    /**
-//     *
-//     * @param sender
-//     * @param data
-//     * @param size
-//     * @return
-//     */
-//    int Receive(Address &sender, void *data, int size);
+    /**
+     *
+     * @param sender
+     * @param data
+     * @param size
+     * @return
+     */
+    int Receive(Address &sender, void *data, int size);
 
 //    /**
 //     * Подготовка сокета к принятию входящих соединений

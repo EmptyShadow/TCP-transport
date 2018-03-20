@@ -109,3 +109,23 @@ bool TCPSocket::Send(const Address &destination, const void *packet_data, int pa
 
     return true;
 }
+
+int TCPSocket::Receive(Address &sender, void *data, int size) {
+#if PLATFORM == PLATFORM_WINDOWS
+    typedef int socklen_t;
+#endif
+
+    sockaddr_in from;
+    socklen_t fromLength = sizeof(from);
+
+    int received_bytes = recvfrom(handle, (char*)data, size,
+                                  0, (sockaddr*)&from, &fromLength);
+
+    if (received_bytes <= 0) {
+        printf("failed received bytes\n");
+    } else {
+        sender.SetAddressInfo(from);
+    }
+
+    return received_bytes;
+}
