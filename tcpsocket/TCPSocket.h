@@ -49,20 +49,20 @@ public:
     void Close();
 
     /**
-     *
-     * @param destination
-     * @param data
-     * @param size
+     * Отправить пакет с данными
+     * @param destination - назначение узла сети
+     * @param data - пакет данных
+     * @param size - количество байт в пакете
      * @return
      */
     bool Send(const Address &destination, const void *packet_data, int packet_size);
 
     /**
-     *
-     * @param sender
-     * @param data
-     * @param size
-     * @return
+     * Читает данные из очереди сообщений
+     * @param sender - отправитель
+     * @param data - сюда будет помещены данные
+     * @param size - максимальное кол-во байт для чтения
+     * @return - количество прочитанных байт
      */
     int Receive(Address &sender, void *data, int size);
 
