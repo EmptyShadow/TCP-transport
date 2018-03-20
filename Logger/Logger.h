@@ -10,6 +10,7 @@
 #include <iostream>
 #include <cstdarg>
 #include <string>
+#include "mutex"
 
 using namespace std;
 #define LOGGER Logger::GetLogger()
@@ -69,6 +70,12 @@ private:
     *   Поток чтения и записи для лог файла
     **/
     static ofstream m_Logfile;
+
+    /**
+     * Мутекс для разришения ситуации записи, в лог файл, разными потоками
+     * одновременно
+     */
+    std::mutex loggerMutex;
 };
 
 #endif //TCP_TRANSPORT_LOGGER_H

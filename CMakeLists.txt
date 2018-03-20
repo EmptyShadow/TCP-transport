@@ -9,4 +9,6 @@ add_executable(TCP_transport
         platformdet.h
         tcpsocket/link_platform_h_socket.h
         tcpsocket/Address.cpp tcpsocket/Address.h
-        Logger/Logger.cpp Logger/Logger.h Logger/Utilities.h)
+        Logger/Logger.cpp Logger/Logger.h
+        Logger/Utilities.h)
+target_link_libraries(TCP_transport pthread)
