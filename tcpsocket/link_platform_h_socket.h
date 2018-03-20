@@ -9,14 +9,15 @@
 
 #if PLATFORM == PLATFORM_WINDOWS
 
-    #pragma comment( lib, "wsock32.lib" )
-    #include <winsock2.h>
+#pragma comment( lib, "wsock32.lib" )
+#include <winsock2.h>
 
 #elif PLATFORM == PLATFORM_MAC || PLATFORM == PLATFORM_UNIX
 
-    #include <sys/socket.h>
-    #include <netinet/in.h>
-    #include <fcntl.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <fcntl.h>
+#include <arpa/inet.h>
 
 #endif
 
