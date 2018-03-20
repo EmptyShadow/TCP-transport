@@ -1,17 +1,17 @@
-#include <stdio.h>
+#include <iostream>
 #include "tcpsocket/TCPSocket.h"
 #include "tcpsocket/Address.h"
+#include "Logger/Logger.h"
 
 int main() {
-    vs
-    /*TCPSocket socket;
+    TCPSocket socket;
     bool res = socket.Open();
     std::cout << res << std::endl;
     res = socket.NonBlocking();
     std::cout << res << std::endl;
-    socket.Close();*/
+    socket.Close();
 
-    /*Address address1(192, 168, 45, 3, 8080);
+    Address address1(192, 168, 45, 3, 8080);
     Address address2(195, 168, 45, 3, 8080);
 
     printf("%d\n", address1.GetAddress());
@@ -22,7 +22,7 @@ int main() {
     printf("%d\n", address1.GetPort());
 
     printf("%d\n", address1 == address2);
-    printf("%d\n", address1 != address2);*/
+    printf("%d\n", address1 != address2);
 
     return 0;
 }

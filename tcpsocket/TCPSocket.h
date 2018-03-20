@@ -9,6 +9,7 @@
 #include "link_platform_h_socket.h"
 #include "unistd.h"
 #include "Address.h"
+#include "../Logger/Logger.h"
 
 #if PLATFORM == PLATFORM_WINDOWS
 typedef int socklen_t;

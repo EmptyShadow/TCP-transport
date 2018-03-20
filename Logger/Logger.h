@@ -58,13 +58,13 @@ private:
     /**
     *   Имя лог файла
     **/
-    static const std::string m_sFileName = "Log.txt";
+    static const std::string m_sFileName;
 
     /**
     *   Синглетон указатель на объект логирования
     **/
 
-    static Logger *m_pThis = nullptr;
+    static Logger *m_pThis;
     /**
     *   Поток чтения и записи для лог файла
     **/

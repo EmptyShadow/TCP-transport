@@ -10,7 +10,7 @@ TCPSocket::TCPSocket() {
 
     WSADATA WsaData;
     if (WSAStartup( MAKEWORD(2,2), &WsaData ) == NO_ERROR) {
-        printf("WSAStartup failed\n");
+        LOGGER->Log("WSAStartup failed");
         this.handle = -1;
     }
 
@@ -20,7 +20,7 @@ TCPSocket::TCPSocket() {
     handle = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
     if (handle <= 0) {
-        printf("failed to create socket\n");
+        LOGGER->Log("failed to create socket");
     }
 }
 
@@ -49,7 +49,7 @@ bool TCPSocket::Open(unsigned short port) {
 
 
     if (bind(handle, (const sockaddr *) &address, sizeof(sockaddr_in)) < 0) {
-        printf("faildes to bind socket\n");
+        LOGGER->Log("faildes to bind socket port:%d", port);
         return false;
     }
 
@@ -63,9 +63,9 @@ bool TCPSocket::NonBlocking(char mode) {
 
     if (fcntl(handle, F_SETFL, O_NONBLOCK, nonBlocking) == -1) {
         if (mode == 1) {
-            printf("failed to set non-blocking socket\n");
+            LOGGER->Log("failed to set non-blocking socket");
         } else {
-            printf("failed to setvblocking socket\n");
+            LOGGER->Log("failed to setvblocking socket");
         }
         return false;
     }
@@ -77,9 +77,9 @@ bool TCPSocket::NonBlocking(char mode) {
     if ( ioctlsocket( handle, FIONBIO, &nonBlocking ) != 0 )
     {
         if (mode == 1) {
-            printf("failed to set non-blocking socket\n");
+            LOGGER->Log("failed to set non-blocking socket");
         } else {
-            printf("failed to setvblocking socket\n");
+            LOGGER->Log("failed to setvblocking socket");
         }
         return false;
     }
@@ -91,11 +91,11 @@ bool TCPSocket::NonBlocking(char mode) {
 void TCPSocket::Close() {
 #if PLATFORM == PLATFORM_MAC || PLATFORM == PLATFORM_UNIX
     if (close(handle) != 0) {
-        printf("failed to close socket");
+        LOGGER->Log("failed to close socket");
     }
 #elif PLATFORM == PLATFORM_WINDOWS
     if (closesocket(handle) != 0) {
-        printf("failed to close socket");
+        LOGGER->Log("failed to close socket");
     }
 #endif
 }
@@ -107,7 +107,7 @@ bool TCPSocket::Send(const Address &destination, const void *packet_data, int pa
                             0, (sockaddr *) &address, sizeof(sockaddr_in));
 
     if (sent_bytes != packet_size) {
-        printf("failed to send packet: return value = %d\n", sent_bytes);
+        LOGGER->Log("failed to send packet: return value = %d\n", sent_bytes);
         return false;
     }
 
@@ -122,7 +122,7 @@ int TCPSocket::Receive(Address &sender, void *data, int size) {
                                   0, (sockaddr *) &from, &fromLength);
 
     if (received_bytes <= 0) {
-        printf("failed received bytes\n");
+        LOGGER->Log("failed received bytes");
     } else {
         sender.SetAddressInfo(from);
     }
@@ -133,7 +133,7 @@ int TCPSocket::Receive(Address &sender, void *data, int size) {
 bool TCPSocket::Listen(unsigned int max_count_package_in_queue) {
     int res = listen(handle, max_count_package_in_queue);
     if (res != 0) {
-        printf("failed listen port\n");
+        LOGGER->Log("failed listen port");
         return false;
     }
     return true;
@@ -146,7 +146,7 @@ TCPSocket *TCPSocket::Accept(Address &address) {
     int newHandle = accept(handle, (sockaddr *) &from, &fromLength);
 
     if (newHandle != 0) {
-        printf("failed accept socket\n");
+        LOGGER->Log("failed accept socket");
         return nullptr;
     }
 
@@ -161,7 +161,7 @@ bool TCPSocket::Connect(const Address &address) {
     int res = connect(handle, (sockaddr *) &from, fromLength);
 
     if (res != 0) {
-        printf("failed connect\n");
+        LOGGER->Log("failed connect");
         return false;
     }
 

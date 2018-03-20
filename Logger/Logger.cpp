@@ -5,6 +5,10 @@
 #include "Logger.h"
 #include"Utilities.h"
 
+const string Logger::m_sFileName = "log";
+Logger* Logger::m_pThis = nullptr;
+ofstream Logger::m_Logfile;
+
 Logger::Logger() {
 
 }
