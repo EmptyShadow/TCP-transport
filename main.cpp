@@ -3,6 +3,7 @@
 #include "tcpsocket/TCPSocket.h"
 #include "tcpsocket/Address.h"
 #include "Logger/Logger.h"
+#include "tcpsocket/link_platform_h_socket.h"
 
 void save(const std::string &url)
 {
@@ -10,6 +11,12 @@ void save(const std::string &url)
 }
 
 int main() {
+
+    Address address1(192, 168, 45, 3, 8080);
+
+    printf("%d\n", address1.GetAddressToSockAddrIn().sin_addr.s_addr);
+    printf("%d\n", htonl(inet_addr("192.168.45.3")));
+
     /*TCPSocket socket;
     bool res = socket.Open();
     std::cout << res << std::endl;

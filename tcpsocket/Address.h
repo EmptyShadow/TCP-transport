@@ -39,12 +39,6 @@ public:
     sockaddr_in GetAddressToSockAddrIn() const;
 
     /**
-     * Получение адреса в формате следования байтов big-endian
-     * @return
-     */
-    unsigned int GetAddressToHtonl() const;
-
-    /**
      * Получение порта в формате следования байтов big-endian
      * @return
      */

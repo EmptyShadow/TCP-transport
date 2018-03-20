@@ -48,11 +48,6 @@ bool Address::operator==(const Address &other) const {
 bool Address::operator!=(const Address &other) const {
     return !(*this == other);
 }
-
-unsigned int Address::GetAddressToHtonl() const {
-    return htonl(address);
-}
-
 unsigned short Address::GetPortToHtons() const {
     return htons(port);
 }
@@ -60,7 +55,7 @@ unsigned short Address::GetPortToHtons() const {
 sockaddr_in Address::GetAddressToSockAddrIn() const {
     sockaddr_in address;
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = GetAddressToHtonl();
+    address.sin_addr.s_addr = this->address;
     address.sin_port = GetPortToHtons();
     return address;
 }
