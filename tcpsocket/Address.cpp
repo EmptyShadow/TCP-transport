@@ -22,19 +22,19 @@ unsigned int Address::GetAddress() const {
 }
 
 unsigned char Address::GetA() const {
-    return (unsigned char)(address >> 24);
+    return (unsigned char) (address >> 24);
 }
 
 unsigned char Address::GetB() const {
-    return (unsigned char)(address >> 16);
+    return (unsigned char) (address >> 16);
 }
 
 unsigned char Address::GetC() const {
-    return (unsigned char)(address >> 8);
+    return (unsigned char) (address >> 8);
 }
 
 unsigned char Address::GetD() const {
-    return (unsigned char)(address);
+    return (unsigned char) (address);
 }
 
 unsigned short Address::GetPort() const {
