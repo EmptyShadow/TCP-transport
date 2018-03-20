@@ -12,10 +12,10 @@ void save(const std::string &url)
 
 int main() {
 
-    Address address1(192, 168, 45, 3, 8080);
+    Address address1(127, 0, 0, 1, 999);
 
     printf("%d\n", address1.GetAddressToSockAddrIn().sin_addr.s_addr);
-    printf("%d\n", htonl(inet_addr("192.168.45.3")));
+    printf("%d\n", htonl(inet_addr("127.0.0.1")));
 
     /*TCPSocket socket;
     bool res = socket.Open();

@@ -24,6 +24,9 @@ int server() {
     // Создаем потоковый сокет
     TCPSocket serverSocket;
 
+    // Перевод в неблокирующий режим
+    // serverSocket.NonBlocking();
+
     // привязываем его к локальному хосту и порту
     if (!serverSocket.Open(PORT)) {
         printf("Error bind\n");
@@ -31,7 +34,7 @@ int server() {
     }
 
     // Слушаем порт и ждем подключений пользователей
-    if (!serverSocket.Listen(256)) {
+    if (!serverSocket.Listen(0x100)) {
         printf("Error listen port: %d\n", PORT);
         return -1;
     }

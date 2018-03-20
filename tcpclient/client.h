@@ -5,11 +5,12 @@
 #ifndef TCP_TRANSPORT_CLIENT_H
 #define TCP_TRANSPORT_CLIENT_H
 
+#include <vector>
 #include "stdio.h"
 #include "../tcpsocket/TCPSocket.h"
 #include "../tcpsocket/Address.h"
 
-#define PORT 999
+#define PORT 9999
 #define SERVERADDR_A 127
 #define SERVERADDR_B 0
 #define SERVERADDR_C 0
@@ -20,6 +21,9 @@ int client() {
 
     // Создаем потоковый сокет
     TCPSocket clientSocket;
+
+    // Перевод в неблокирующий режим
+    //clientSocket.NonBlocking();
 
     Address serverAddress(SERVERADDR_A,
                           SERVERADDR_B,
@@ -40,6 +44,14 @@ int client() {
            SERVERADDR_D,
            PORT);
 
+    std::vector<std::string> transactions;
+    transactions.push_back("qwe|rty|1");
+    transactions.push_back("qwe|rty|2");
+    transactions.push_back("qwe|rty|3");
+    transactions.push_back("qwe|rty|4");
+    transactions.push_back("qwe|rty|5");
+
+    clientSocket.Send(serverAddress, transactions.data(), sizeof(transactions));
 
     printf("Exit...");
     return 0;

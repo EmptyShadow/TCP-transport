@@ -145,7 +145,7 @@ TCPSocket *TCPSocket::Accept(Address &address) {
 
     int newHandle = accept(handle, (sockaddr *) &from, &fromLength);
 
-    if (newHandle != 0) {
+    if (newHandle < 0) {
         LOGGER->Log("failed accept socket");
         return nullptr;
     }

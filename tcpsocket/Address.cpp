@@ -55,12 +55,12 @@ unsigned short Address::GetPortToHtons() const {
 sockaddr_in Address::GetAddressToSockAddrIn() const {
     sockaddr_in address;
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = this->address;
+    address.sin_addr.s_addr = htonl(this->address);
     address.sin_port = GetPortToHtons();
     return address;
 }
 
 void Address::SetAddressInfo(const sockaddr_in &sockaddrIn) {
-    address = ntohl(sockaddrIn.sin_addr.s_addr);
+    address = sockaddrIn.sin_addr.s_addr;
     port = ntohs(sockaddrIn.sin_port);
 }
