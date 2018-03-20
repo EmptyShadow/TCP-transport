@@ -59,12 +59,14 @@ public:
      */
     int Receive(Address &sender, void *data, int size);
 
-//    /**
-//     * Подготовка сокета к принятию входящих соединений
-//     * @param count_links
-//     * @return
-//     */
-//    bool Listen(unsigned int count_links);
+    /**
+     * Подготовка сокета к принятию входящих соединений
+     * Прослушивание порта
+     * @param max_count_package_in_queue - максимальное количество пакетов
+     * в очереди сообщений
+     * @return
+     */
+    bool Listen(unsigned int max_count_package_in_queue);
 
 private:
 

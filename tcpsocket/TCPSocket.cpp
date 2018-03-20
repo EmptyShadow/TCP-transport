@@ -118,8 +118,8 @@ int TCPSocket::Receive(Address &sender, void *data, int size) {
     sockaddr_in from;
     socklen_t fromLength = sizeof(from);
 
-    int received_bytes = recvfrom(handle, (char*)data, size,
-                                  0, (sockaddr*)&from, &fromLength);
+    int received_bytes = recvfrom(handle, (char *) data, size,
+                                  0, (sockaddr *) &from, &fromLength);
 
     if (received_bytes <= 0) {
         printf("failed received bytes\n");
@@ -128,4 +128,13 @@ int TCPSocket::Receive(Address &sender, void *data, int size) {
     }
 
     return received_bytes;
+}
+
+bool TCPSocket::Listen(unsigned int max_count_package_in_queue) {
+    int res = listen(handle, max_count_package_in_queue);
+    if (res == -1) {
+        printf("failed listen port\n");
+        return false;
+    }
+    return true;
 }
