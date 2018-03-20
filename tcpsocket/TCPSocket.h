@@ -10,6 +10,10 @@
 #include "unistd.h"
 #include "Address.h"
 
+#if PLATFORM == PLATFORM_WINDOWS
+typedef int socklen_t;
+#endif
+
 /**
  * Класс потокового сокета, который опирается на TCP
  */
@@ -17,6 +21,8 @@ class TCPSocket {
 public:
 
     TCPSocket();
+
+    TCPSocket(int handle);
 
     ~TCPSocket();
 
@@ -67,6 +73,15 @@ public:
      * @return
      */
     bool Listen(unsigned int max_count_package_in_queue);
+
+    /**
+     * Cоздает новый сокет, связанный с принятым соединением.
+     * Для формирования нового сокета нужен
+     * действующий сокет, который уже прослушивает порт.
+     * @param address - адрес, откуда идет соединение
+     * @return новый сокет
+     */
+    TCPSocket* Accept(Address &address);
 
 private:
 

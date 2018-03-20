@@ -24,6 +24,10 @@ TCPSocket::TCPSocket() {
     }
 }
 
+TCPSocket::TCPSocket(int handle) {
+    this->handle = handle;
+}
+
 TCPSocket::~TCPSocket() {
 #if PLATFORM == PLATFORM_WINDOWS
 
@@ -111,10 +115,6 @@ bool TCPSocket::Send(const Address &destination, const void *packet_data, int pa
 }
 
 int TCPSocket::Receive(Address &sender, void *data, int size) {
-#if PLATFORM == PLATFORM_WINDOWS
-    typedef int socklen_t;
-#endif
-
     sockaddr_in from;
     socklen_t fromLength = sizeof(from);
 
@@ -132,9 +132,24 @@ int TCPSocket::Receive(Address &sender, void *data, int size) {
 
 bool TCPSocket::Listen(unsigned int max_count_package_in_queue) {
     int res = listen(handle, max_count_package_in_queue);
-    if (res == -1) {
+    if (res < 0) {
         printf("failed listen port\n");
         return false;
     }
     return true;
+}
+
+TCPSocket *TCPSocket::Accept(Address &address) {
+    sockaddr_in from;
+    socklen_t fromLength = sizeof(from);
+
+    int newHandle = accept(this->handle, (sockaddr *) &from, &fromLength);
+
+    if (newHandle < 0) {
+        printf("failed accept socket\n");
+        return nullptr;
+    }
+
+    address.SetAddressInfo(from);
+    return new TCPSocket(newHandle);
 }
