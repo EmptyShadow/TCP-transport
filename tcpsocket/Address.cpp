@@ -64,3 +64,8 @@ sockaddr_in Address::GetAddressToSockAddrIn() const {
     address.sin_port = GetPortToHtons();
     return address;
 }
+
+void Address::SetAddressInfo(const sockaddr_in &sockaddrIn) {
+    address = ntohl(sockaddrIn.sin_addr.s_addr);
+    port = ntohs(sockaddrIn.sin_port);
+}

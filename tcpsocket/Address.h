@@ -47,6 +47,12 @@ public:
      */
     unsigned short GetPortToHtons() const;
 
+    /**
+     * Изменить информацию об адрисе
+     * @param sockaddrIn структура адреса сокета
+     */
+    void SetAddressInfo(const sockaddr_in &sockaddrIn);
+
     bool operator==(const Address &other) const;
 
     bool operator!=(const Address &other) const;
