@@ -51,7 +51,9 @@ int client() {
     transactions.push_back("qwe|rty|4");
     transactions.push_back("qwe|rty|5");
 
-    clientSocket.Send(serverAddress, transactions.data(), sizeof(transactions));
+    printf("%s", transactions.data()->data());
+
+    clientSocket.Send(serverAddress, transactions.data(), sizeof(transactions.data()));
 
     printf("Exit...");
     return 0;

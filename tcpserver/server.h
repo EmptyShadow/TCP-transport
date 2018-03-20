@@ -57,7 +57,6 @@ int server() {
         );
         PRINT_N_USERS
 
-
         // создание нового потока для обслуживания
         std::thread newServeTh(ServeTheUser,
                                serveSocket,
@@ -81,6 +80,12 @@ int ServeTheUser(TCPSocket *serveSocket, Address *userAddress) {
            userAddress->GetB(),
            userAddress->GetPort()
     );
+
+    /*vector<string> transactions(5);
+
+    while ((bytes_recv = serveSocket->Receive( sizeof(buff))) >= 0) {
+
+    }*/
 
     mutexServe.lock();
     countActiveUsers--;
