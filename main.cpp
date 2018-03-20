@@ -10,7 +10,7 @@ void save(const std::string &url)
 }
 
 int main() {
-    TCPSocket socket;
+    /*TCPSocket socket;
     bool res = socket.Open();
     std::cout << res << std::endl;
     res = socket.NonBlocking();
@@ -42,7 +42,7 @@ int main() {
     t3.join();
     t4.join();
     t5.join();
-    t6.join();
+    t6.join();*/
 
     return 0;
 }
