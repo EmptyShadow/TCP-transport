@@ -81,7 +81,14 @@ public:
      * @param address - адрес, откуда идет соединение
      * @return новый сокет
      */
-    TCPSocket* Accept(Address &address);
+    TCPSocket *Accept(Address &address);
+
+    /**
+     * Установка соединения
+     * @param address
+     * @return
+     */
+    bool Connect(const Address &address);
 
 private:
 

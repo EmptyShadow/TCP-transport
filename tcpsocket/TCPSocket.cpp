@@ -132,7 +132,7 @@ int TCPSocket::Receive(Address &sender, void *data, int size) {
 
 bool TCPSocket::Listen(unsigned int max_count_package_in_queue) {
     int res = listen(handle, max_count_package_in_queue);
-    if (res < 0) {
+    if (res != 0) {
         printf("failed listen port\n");
         return false;
     }
@@ -143,13 +143,27 @@ TCPSocket *TCPSocket::Accept(Address &address) {
     sockaddr_in from;
     socklen_t fromLength = sizeof(from);
 
-    int newHandle = accept(this->handle, (sockaddr *) &from, &fromLength);
+    int newHandle = accept(handle, (sockaddr *) &from, &fromLength);
 
-    if (newHandle < 0) {
+    if (newHandle != 0) {
         printf("failed accept socket\n");
         return nullptr;
     }
 
     address.SetAddressInfo(from);
     return new TCPSocket(newHandle);
+}
+
+bool TCPSocket::Connect(const Address &address) {
+    sockaddr_in from = address.GetAddressToSockAddrIn();
+    socklen_t fromLength = sizeof(from);
+
+    int res = connect(handle, (sockaddr *) &from, fromLength);
+
+    if (res != 0) {
+        printf("failed connect\n");
+        return false;
+    }
+
+    return true;
 }
