@@ -3,3 +3,61 @@
 //
 
 #include "Logger.h"
+#include"Utilities.h"
+
+Logger::Logger() {
+
+}
+
+Logger *Logger::GetLogger() {
+    // если логгер еще никто не использовал
+    if (m_pThis == NULL) {
+        // то создаем логгер и создаем или открываем файл
+        m_pThis = new Logger();
+        m_Logfile.open(m_sFileName.c_str(), ios::out | ios::app);
+    }
+    return m_pThis;
+}
+
+void Logger::Close() {
+    if (m_pThis != NULL) {
+        delete m_pThis;
+        m_pThis = nullptr;
+        m_Logfile.close();
+    }
+}
+
+void Logger::Log(const char *format, ...) {
+    char *sMessage = NULL;
+    int nLength = 0;
+
+    va_list args;
+    //  Получаем список аргументов
+    va_start(args, format);
+
+    // Подсчитываем количество символо в результирующем сообщении + '\n'
+    nLength = vprintf(format, args) + 1;
+    sMessage = new char[nLength];
+
+    // записываем в сообщение строку форматирования, с вставленными в нее аргументами
+    vsnprintf(sMessage, nLength, format, args);
+    // выводим дату, время и сообщение
+    m_Logfile << Util::CurrentDateTime() << ":\t";
+    m_Logfile << sMessage << "\n";
+
+    va_end(args);
+
+    // удаляем сообщение из памяти
+    delete[] sMessage;
+}
+
+void Logger::Log(const string &sMessage) {
+    m_Logfile << Util::CurrentDateTime() << ":\t";
+    m_Logfile << sMessage << "\n";
+}
+
+Logger &Logger::operator<<(const string &sMessage) {
+    m_Logfile << "\n" << Util::CurrentDateTime() << ":\t";
+    m_Logfile << sMessage << "\n";
+    return *this;
+}

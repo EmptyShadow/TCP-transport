@@ -43,6 +43,11 @@ public:
     */
     static Logger *GetLogger();
 
+    /**
+     * Закрытие логгера и отчистка памяти
+     */
+    static void Close();
+
 private:
     Logger();
 
@@ -53,13 +58,13 @@ private:
     /**
     *   Имя лог файла
     **/
-    static const std::string m_sFileName;
+    static const std::string m_sFileName = "Log.txt";
 
     /**
     *   Синглетон указатель на объект логирования
     **/
 
-    static Logger *m_pThis;
+    static Logger *m_pThis = nullptr;
     /**
     *   Поток чтения и записи для лог файла
     **/
