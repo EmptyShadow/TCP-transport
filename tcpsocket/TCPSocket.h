@@ -64,7 +64,15 @@ public:
      * @param size - максимальное кол-во байт для чтения
      * @return - количество прочитанных байт
      */
-    int Receive(Address &sender, void *data, int size);
+    int ReceiveFrom(Address &sender, void *data, int size);
+
+    /**
+     * Читает данные из очереди сообщений
+     * @param data - сюда будет помещены данные
+     * @param size - максимальное кол-во байт для чтения
+     * @return - количество прочитанных байт
+     */
+    int Receive(void *data, int size);
 
     /**
      * Подготовка сокета к принятию входящих соединений

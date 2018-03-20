@@ -114,17 +114,27 @@ bool TCPSocket::Send(const Address &destination, const void *packet_data, int pa
     return true;
 }
 
-int TCPSocket::Receive(Address &sender, void *data, int size) {
+int TCPSocket::ReceiveFrom(Address &sender, void *data, int size) {
     sockaddr_in from;
     socklen_t fromLength = sizeof(from);
 
     int received_bytes = recvfrom(handle, (char *) data, size,
                                   0, (sockaddr *) &from, &fromLength);
 
-    if (received_bytes <= 0) {
+    if (received_bytes < 0) {
         LOGGER->Log("failed received bytes");
     } else {
         sender.SetAddressInfo(from);
+    }
+
+    return received_bytes;
+}
+
+int TCPSocket::Receive(void *data, int size) {
+    int received_bytes = recv(handle, data, size, 0);
+
+    if (received_bytes < 0) {
+        LOGGER->Log("failed received bytes");
     }
 
     return received_bytes;
