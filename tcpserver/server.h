@@ -4,8 +4,11 @@
 
 #include <vector>
 #include <thread>
+#include <sstream>
 #include "mutex"
 #include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
 #include "../tcpsocket/TCPSocket.h"
 
 #define PORT 9999
@@ -15,6 +18,7 @@ printf("%d user on-line\n", countActiveUsers);\
 else printf("No User on-line\n");
 
 int ServeTheUser(TCPSocket *serveSocket, Address *userAddress);
+int Transfer(const char* data);
 
 static int countActiveUsers = 0;
 std::mutex mutexServe;
@@ -81,11 +85,26 @@ int ServeTheUser(TCPSocket *serveSocket, Address *userAddress) {
            userAddress->GetPort()
     );
 
-    /*vector<string> transactions(5);
+    vector<string> transactions(5);
 
-    while ((bytes_recv = serveSocket->Receive( sizeof(buff))) >= 0) {
+    // все данные от пользователя
+    char *data = nullptr;
+    // количество байт всего переданно
+    int countData = 0;
+    // количество прочтенных данных
+    int bytes_recv;
+    // буфер куда читают
+    char buff[1024];
+    // читаем все пока есть соединение
+    while ((bytes_recv = serveSocket->Receive(buff, 1024)) > 0) {
+        countData += bytes_recv;
+        data = (char *) realloc(data, countData * sizeof(char));
+        strcat(data, buff);
+    }
 
-    }*/
+    // Передача принятых данных
+    Transfer(data);
+    delete data;
 
     mutexServe.lock();
     countActiveUsers--;
@@ -95,3 +114,18 @@ int ServeTheUser(TCPSocket *serveSocket, Address *userAddress) {
     delete userAddress;
     return 0;
 }
+
+int Transfer(const char* data) {
+    printf("Transfer data\n");
+
+    string str(data);
+    stringstream ss(str);
+    string token;
+
+    printf("full data: \"%s\"\n", str.c_str());
+    while (getline(ss, token, '|')) {
+        printf("%s\n", token.c_str());
+    }
+    return 0;
+}
+

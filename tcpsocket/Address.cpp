@@ -48,6 +48,7 @@ bool Address::operator==(const Address &other) const {
 bool Address::operator!=(const Address &other) const {
     return !(*this == other);
 }
+
 unsigned short Address::GetPortToHtons() const {
     return htons(port);
 }

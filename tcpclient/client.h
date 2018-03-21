@@ -7,6 +7,8 @@
 
 #include <vector>
 #include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
 #include "../tcpsocket/TCPSocket.h"
 #include "../tcpsocket/Address.h"
 
@@ -15,6 +17,8 @@
 #define SERVERADDR_B 0
 #define SERVERADDR_C 0
 #define SERVERADDR_D 1
+
+char *VectorStringsToCharArray(std::vector<std::string> &vector, int indexStart = 0, int indexEnd = -1);
 
 int client() {
     printf("TCP client\n");
@@ -50,13 +54,47 @@ int client() {
     transactions.push_back("qwe|rty|3");
     transactions.push_back("qwe|rty|4");
     transactions.push_back("qwe|rty|5");
+    transactions.push_back("qwe|rty|6");
+    transactions.push_back("qwe|rty|7");
+    transactions.push_back("qwe|rty|8");
+    transactions.push_back("qwe|rty|9");
+    transactions.push_back("qwe|rty|10");
 
-    printf("%s", transactions.data()->data());
+    char *res = nullptr;
+    res = VectorStringsToCharArray(transactions, 0, 5);
+    printf("%s %d\n", res, strlen(res));
 
-    clientSocket.Send(serverAddress, transactions.data(), sizeof(transactions.data()));
+    clientSocket.Send(serverAddress, res, strlen(res));
+    delete res;
+
+    res = nullptr;
+    res = VectorStringsToCharArray(transactions, 5, 10);
+    printf("%s %d\n", res, strlen(res));
+
+    clientSocket.Send(serverAddress, res, strlen(res));
+    delete res;
 
     printf("Exit...");
     return 0;
+}
+
+char *VectorStringsToCharArray(std::vector<std::string> &vector, int indexStart, int indexEnd) {
+    if (indexEnd == -1) {
+        indexEnd = vector.size();
+    }
+    int count = 0;
+    char *resCharArray = nullptr;
+
+    for (int i = indexStart; i < indexEnd; i++) {
+        count += vector[i].length();
+
+        resCharArray = (char *) realloc(resCharArray, count * sizeof(char));
+
+        const char *str = vector[i].data();
+        strcat(resCharArray, str);
+    }
+
+    return resCharArray;
 }
 
 #endif //TCP_TRANSPORT_CLIENT_H
